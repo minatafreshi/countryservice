@@ -37,17 +37,17 @@ public class CountryService {
         PageRequest pageable = PageRequest.of(pageNo, pageSize);
         Page<Country> countries = countryRepository.findAll( pageable);
         if (countries.isEmpty()) {
-            return Response.noContent().build();
+            return Response.status(Response.Status.NO_CONTENT).build();
         }
-        return Response.ok().entity(new PaginationDto(countries.getContent(),countries.getTotalElements(),countries.getTotalPages())).build();
+        return Response.status(Response.Status.OK).entity(new PaginationDto(countries.getContent(),countries.getTotalElements(),countries.getTotalPages())).build();
     }
 
     public Response listCity() {
         List<City> cities = cityRepository.findAll();
         if (cities.isEmpty()) {
-            return Response.noContent().build();
+            return Response.status(Response.Status.NO_CONTENT).build();
         }
-            return Response.ok().entity(cities).build();
+            return Response.status(Response.Status.OK).build();
     }
 
     public Response listState() {
@@ -64,7 +64,7 @@ public class CountryService {
         Country saveCountry = countryRepository.save(newCountry);
         if (countryRepository.findById(saveCountry.getId()).isPresent()) {
             String message = "Created";
-            return  Response.accepted().entity(message).build();
+            return  Response.status(Response.Status.ACCEPTED).entity(message).build();
         } else
             return Response.status(Response.Status.BAD_REQUEST).build();
     }
