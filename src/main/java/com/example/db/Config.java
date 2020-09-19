@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ApplicationPath("/api/v1")
 public class Config extends ResourceConfig {
-    public void config() {
+    public Config() {
         register(CountryController.class);
     }
 }
