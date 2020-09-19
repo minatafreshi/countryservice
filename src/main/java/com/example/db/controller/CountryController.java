@@ -3,22 +3,16 @@ package com.example.db.controller;
 import com.example.db.dto.CityDto;
 import com.example.db.dto.CountryDto;
 import com.example.db.dto.StateDto;
-import com.example.db.entity.Country;
-import com.example.db.entity.State;
+
 import com.example.db.service.CountryService;
-import org.springframework.data.domain.Page;
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
-/*@RestController*/
 @Component
-@Path("/api/v1")
+//@Path("/v1")
 
 public class CountryController {
 
@@ -31,21 +25,21 @@ public class CountryController {
     @GET
     @Produces("application/json")
     @Path("/countries")
-    public Response getAllCountry(@RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
+    public Response getAllCountry(@QueryParam("0") int pageNo, @QueryParam("10") int pageSize) {
         return countryService.listCountry(pageNo, pageSize);
     }
 
     @POST
     @Produces("application/json")
     @Path("/countries")
-    public Response createCountry(@RequestBody CountryDto country) {
+    public Response createCountry(CountryDto country) {
         return countryService.addCountry(country);
     }
 
     @DELETE
     @Produces("application/json")
     @Path("/countries/{id}")
-    public Response deleteCountry(@PathVariable Long id) {
+    public Response deleteCountry(@PathParam("id") long id) {
         return countryService.deleteCountry(id);
     }
 
@@ -59,14 +53,14 @@ public class CountryController {
     @POST
     @Produces("application/json")
     @Path("/countries/{countryId}/{state}")
-    public Response createState(@RequestBody StateDto state, @PathVariable long countryId) {
+    public Response createState(StateDto state, @PathParam("countryId") long countryId) {
         return countryService.addState(state, countryId);
     }
 
     @DELETE
     @Produces("application/json")
     @Path("/states")
-    public Response deleteState(@PathVariable Long id) {
+    public Response deleteState(long id) {
         return countryService.deleteState(id);
     }
 
@@ -80,14 +74,14 @@ public class CountryController {
     @POST
     @Produces("application/json")
     @Path("/states/{stateId}/city")
-    public Response createCity(@RequestBody CityDto city, @PathVariable Long stateId) {
+    public Response createCity(CityDto city, @PathParam("stateId") long stateId) {
         return countryService.addCity(city, stateId);
     }
 
     @DELETE
     @Produces("application/json")
     @Path("cities/{id}")
-    public Response deleteCity(@PathVariable Long id) {
+    public Response deleteCity(@PathParam("id") long id) {
         return countryService.deleteCity(id);
     }
 

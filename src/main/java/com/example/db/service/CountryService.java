@@ -33,9 +33,11 @@ public class CountryService {
         this.stateRepository = stateRepository;
     }
 
-    public Response listCountry(int pageNo, int pageSize) {
+    public Response listCountry(int pageNo , int pageSize) {
+        pageNo = 1;
+        pageSize = 10;
         PageRequest pageable = PageRequest.of(pageNo, pageSize);
-        Page<Country> countries = countryRepository.findAll( pageable);
+        Page<Country> countries = countryRepository.findAll(pageable);
         if (countries.isEmpty()) {
             return Response.status(Response.Status.NO_CONTENT).build();
         }
