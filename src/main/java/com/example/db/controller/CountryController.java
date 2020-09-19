@@ -12,7 +12,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 @Component
-//@Path("/v1")
+@Path("v1")
 
 public class CountryController {
 
@@ -52,7 +52,7 @@ public class CountryController {
 
     @POST
     @Produces("application/json")
-    @Path("/countries/{countryId}/{state}")
+    @Path("/countries/{countryId}/state")
     public Response createState(StateDto state, @PathParam("countryId") long countryId) {
         return countryService.addState(state, countryId);
     }
