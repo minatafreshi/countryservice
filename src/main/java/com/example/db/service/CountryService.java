@@ -13,7 +13,6 @@ import com.example.db.repository.CountryRepository;
 import com.example.db.repository.StateRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.Response;
@@ -34,30 +33,28 @@ public class CountryService {
     }
 
     public Response listCountry(int pageNo , int pageSize) {
-        pageNo = 1;
-        pageSize = 10;
         PageRequest pageable = PageRequest.of(pageNo, pageSize);
         Page<Country> countries = countryRepository.findAll(pageable);
         if (countries.isEmpty()) {
-            return Response.status(Response.Status.NO_CONTENT).build();
+            return Response.status(Response.Status.NO_CONTENT).header("Content-Type", "application/json;charset=UTF-8").build();
         }
-        return Response.status(Response.Status.OK).entity(new PaginationDto(countries.getContent(),countries.getTotalElements(),countries.getTotalPages())).build();
+        return Response.status(Response.Status.OK).entity(new PaginationDto(countries.getContent(),countries.getTotalElements(),countries.getTotalPages())).header("Content-Type", "application/json;charset=UTF-8").build();
     }
 
     public Response listCity() {
         List<City> cities = cityRepository.findAll();
         if (cities.isEmpty()) {
-            return Response.status(Response.Status.NO_CONTENT).build();
+            return Response.status(Response.Status.NO_CONTENT).header("Content-Type", "application/json;charset=UTF-8").build();
         }
-            return Response.status(Response.Status.OK).build();
+            return Response.status(Response.Status.OK).header("Content-Type", "application/json;charset=UTF-8").build();
     }
 
     public Response listState() {
         List<State> states = stateRepository.findAll();
         if (states.isEmpty()) {
-            return Response.status(Response.Status.NO_CONTENT).build();
+            return Response.status(Response.Status.NO_CONTENT).header("Content-Type", "application/json;charset=UTF-8").build();
         }
-        return Response.status(Response.Status.OK).build();
+        return Response.status(Response.Status.OK).header("Content-Type", "application/json;charset=UTF-8").build();
     }
 
     public Response addCountry(CountryDto country) {
@@ -66,9 +63,9 @@ public class CountryService {
         Country saveCountry = countryRepository.save(newCountry);
         if (countryRepository.findById(saveCountry.getId()).isPresent()) {
             String message = "Created";
-            return  Response.status(Response.Status.ACCEPTED).entity(message).build();
+            return  Response.status(Response.Status.ACCEPTED).entity(message).header("Content-Type", "application/json;charset=UTF-8").build();
         } else
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.BAD_REQUEST).header("Content-Type", "application/json;charset=UTF-8").build();
     }
 
     public Response deleteCountry(Long id) {
@@ -76,57 +73,57 @@ public class CountryService {
             countryRepository.deleteById(id);
             if (countryRepository.findById(id).isPresent()) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
-            } else return Response.status(Response.Status.OK).build();
+            } else return Response.status(Response.Status.OK).header("Content-Type", "application/json;charset=UTF-8").build();
         } else
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(Response.Status.NOT_FOUND).header("Content-Type", "application/json;charset=UTF-8").build();
     }
 
     public Response addCity(CityDto city,long stateId) {
         Optional<State> byId = stateRepository.findById(stateId);
         if(!byId.isPresent()){
-            return  Response.status(Response.Status.BAD_REQUEST).build();
+            return  Response.status(Response.Status.BAD_REQUEST).header("Content-Type", "application/json;charset=UTF-8").build();
         }
         City newCity = new City(city.getName(),byId.get());
         newCity.setName(city.getName());
         City saveCity = cityRepository.save(newCity);
         if (cityRepository.findById(saveCity.getId()).isPresent()) {
-            return Response.status(Response.Status.ACCEPTED).build();
+            return Response.status(Response.Status.ACCEPTED).header("Content-Type", "application/json;charset=UTF-8").build();
         } else
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.BAD_REQUEST).header("Content-Type", "application/json;charset=UTF-8").build();
     }
 
     public Response deleteCity(Long id) {
         if (cityRepository.findById(id).isPresent()) {
             cityRepository.deleteById(id);
             if (cityRepository.findById(id).isPresent()) {
-                return Response.status(Response.Status.BAD_REQUEST).build();
-            } else return Response.status(Response.Status.OK).build();
+                return Response.status(Response.Status.BAD_REQUEST).header("Content-Type", "application/json;charset=UTF-8").build();
+            } else return Response.status(Response.Status.OK).header("Content-Type", "application/json;charset=UTF-8").build();
         } else
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.BAD_REQUEST).header("Content-Type", "application/json;charset=UTF-8").build();
     }
 
     public Response addState(StateDto state, long countryId) {
         Optional<Country> byId = countryRepository.findById(countryId);
         if (!byId.isPresent()) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.BAD_REQUEST).header("Content-Type", "application/json;charset=UTF-8").build();
         }
         State newState = new State(state.getName(), byId.get());
         newState.setName(state.getName());
         State saveState = stateRepository.save(newState);
         if (stateRepository.findById(saveState.getId()).isPresent()) {
-            return Response.status(Response.Status.ACCEPTED).build();
+            return Response.status(Response.Status.ACCEPTED).header("Content-Type", "application/json;charset=UTF-8").build();
         } else
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.BAD_REQUEST).header("Content-Type", "application/json;charset=UTF-8").build();
     }
 
     public Response deleteState(Long id) {
         if (stateRepository.findById(id).isPresent()) {
             stateRepository.deleteById(id);
             if (stateRepository.findById(id).isPresent()) {
-                return Response.status(Response.Status.BAD_REQUEST).build();
-            } else return Response.status(Response.Status.OK).build();
+                return Response.status(Response.Status.BAD_REQUEST).header("Content-Type", "application/json;charset=UTF-8").build();
+            } else return Response.status(Response.Status.OK).header("Content-Type", "application/json;charset=UTF-8").build();
         } else
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.BAD_REQUEST).header("Content-Type", "application/json;charset=UTF-8").build();
     }
 }
 
