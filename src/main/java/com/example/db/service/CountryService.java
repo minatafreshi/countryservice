@@ -32,13 +32,16 @@ public class CountryService {
         this.stateRepository = stateRepository;
     }
 
-    public Response listCountry(int pageNo , int pageSize) {
+    public Response listCountry(int pageNo , int pageSize, String name) {
         PageRequest pageable = PageRequest.of(pageNo, pageSize);
-        Page<Country> countries = countryRepository.findAll(pageable);
-        if (countries.isEmpty()) {
-            return Response.status(Response.Status.NO_CONTENT).header("Content-Type", "application/json;charset=UTF-8").build();
+        if (name != null) {
+            name = "%" + name + "%";
         }
-        return Response.status(Response.Status.OK).entity(new PaginationDto(countries.getContent(),countries.getTotalElements(),countries.getTotalPages())).header("Content-Type", "application/json;charset=UTF-8").build();
+        Page<Country> countries = countryRepository.findByLike(name, pageable);
+        if (countries.isEmpty()) {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
+        return Response.status(Response.Status.OK).entity(new PaginationDto(countries.getContent(),countries.getTotalElements(),countries.getTotalPages())).build();
     }
 
     public Response listCity() {

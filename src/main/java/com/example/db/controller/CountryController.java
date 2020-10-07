@@ -8,6 +8,7 @@ import com.example.db.service.CountryService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
@@ -29,8 +30,8 @@ public class CountryController {
     @Produces("application/json; charset=utf-8")
     @Path("/countries")
     @ApiOperation("get all Country")
-    public Response getAllCountry(@QueryParam("page") @DefaultValue("0") int pageNo, @QueryParam("size") @DefaultValue("10") int pageSize) {
-        return countryService.listCountry(pageNo, pageSize);
+    public Response getAllCountry(@QueryParam("page") @DefaultValue("0") int pageNo, @QueryParam("size") @DefaultValue("10") int pageSize, @QueryParam("name") String name) {
+        return countryService.listCountry(pageNo, pageSize, name);
     }
 
     @POST
