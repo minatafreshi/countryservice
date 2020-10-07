@@ -8,7 +8,6 @@ import com.example.db.service.CountryService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
@@ -51,7 +50,7 @@ public class CountryController {
     @GET
     @Produces("application/json; charset=urf-8")
     @Path("/states/{countryId}/")
-    public Response getAllStates(StateDto state, @PathParam("countryId")  long countryId) {
+    public Response getAllStates(StateDto state, @PathParam("countryId") long countryId) {
         return countryService.listState(countryId);
     }
 
@@ -72,8 +71,8 @@ public class CountryController {
     @GET
     @Produces("application/json; charset=utf-8")
     @Path("/cities")
-    public Response getAllCities() {
-        return countryService.listCity();
+    public Response getAllCities(@PathParam("stateId") long stateId) {
+        return countryService.listCity(stateId);
     }
 
     @POST
@@ -89,51 +88,4 @@ public class CountryController {
     public Response deleteCity(@PathParam("id") long id) {
         return countryService.deleteCity(id);
     }
-
-
-
-    /*@GetMapping(value = "/countries")
-    public ResponseEntity<Object> getAllCountry(@RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
-        return countryService.listCountry(pageNo, pageSize);
-    }*/
-
-   /* @PostMapping("/countries")
-    public ResponseEntity<Object> createCountry(@RequestBody CountryDto country) {
-        return countryService.addCountry(country);
-    }*/
-
-    /*@DeleteMapping("/countries/{id}")
-    public ResponseEntity<Object> deleteCountry(@PathVariable Long id) {
-        return countryService.deleteCountry(id);
-    }*/
-
-  /*  @GetMapping("states")
-    public  ResponseEntity<Object> getAllStates() {
-        return countryService.listState();
-    }*/
-
-    /*@PostMapping("/countries/{countryId}/state")
-    public ResponseEntity<Object> createState(@RequestBody StateDto state, @PathVariable long countryId) {
-        return countryService.addState(state, countryId);
-    }*/
-
-    /*@DeleteMapping("/states")
-    public ResponseEntity<Object> deleteState(@PathVariable Long id) {
-        return countryService.deleteState(id);
-    }*/
-
-/*    @GetMapping("cities")
-    public ResponseEntity<Object> getAllCities() {
-        return countryService.listCity();
-    }*/
-
-    /*@PostMapping("states/{stateId}/city")
-    public ResponseEntity<Object> createCity(@RequestBody CityDto city, @PathVariable long stateId) {
-        return countryService.addCity(city, stateId);
-    }*/
-
-/*    @DeleteMapping("/cities/{id}")
-    public ResponseEntity<Object> deleteCity(@PathVariable Long id) {
-        return countryService.deleteCity(id);
-    }*/
 }

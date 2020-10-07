@@ -4,6 +4,11 @@ public class CityDto {
     private Long id;
     private String name;
 
+    public CityDto(String name, Long id, String s) {
+        this.name = name;
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }

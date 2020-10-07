@@ -45,12 +45,26 @@ public class CountryService {
         return Response.status(Response.Status.OK).entity(new PaginationDto(countries.getContent(), countries.getTotalElements(), countries.getTotalPages())).build();
     }
 
-    public Response listCity() {
-        List<City> cities = cityRepository.findAll();
-        if (cities.isEmpty()) {
-            return Response.status(Response.Status.NO_CONTENT).build();
+    public Response listState(Long id) {
+        List<State> stateList = stateRepository.listByCountryId(id);
+        List<StateDto> stateDtos = new ArrayList<>();
+
+        for (State state : stateList) {
+            stateDtos.add(new StateDto(state.getName(), 0));
         }
-        return Response.status(Response.Status.OK).build();
+
+        return Response.status(Response.Status.OK).entity(stateDtos).build();
+    }
+    public Response listCity(Long id) {
+        List<City> cityList = cityRepository.listByStateId(id);
+        List<CityDto> cityDtos = new ArrayList<>();
+
+        for (City city : cityList) {
+            cityDtos.add(new CityDto(city.getName(), city.getId(), city.getState().getName()));
+
+        }
+
+        return Response.status(Response.Status.OK).entity(cityDtos).build();
     }
 
     public Response addCountry(CountryDto country) {
@@ -96,17 +110,6 @@ public class CountryService {
             } else return Response.status(Response.Status.OK).build();
         } else
             return Response.status(Response.Status.BAD_REQUEST).build();
-    }
-
-    public Response listState(Long id) {
-        List<State> stateList = stateRepository.listByCountryId(id);
-        List<StateDto> stateDtos = new ArrayList<>();
-
-        for (State state : stateList) {
-            stateDtos.add(new StateDto(state.getName(), 0));
-        }
-
-        return Response.status(Response.Status.OK).entity(stateDtos).build();
     }
 
     public Response addState(StateDto state, long countryId) {
