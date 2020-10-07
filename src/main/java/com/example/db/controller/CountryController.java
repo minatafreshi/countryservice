@@ -50,9 +50,9 @@ public class CountryController {
 
     @GET
     @Produces("application/json; charset=urf-8")
-    @Path("/states")
-    public Response getAllStates() {
-        return countryService.listState();
+    @Path("/states/{countryId}/")
+    public Response getAllStates(StateDto state, @PathParam("countryId")  long countryId) {
+        return countryService.listState(countryId);
     }
 
     @POST
