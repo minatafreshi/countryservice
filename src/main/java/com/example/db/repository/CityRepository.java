@@ -1,5 +1,6 @@
 package com.example.db.repository;
 
+import com.example.db.dto.StateDto;
 import com.example.db.entity.City;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

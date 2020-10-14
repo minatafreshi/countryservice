@@ -4,13 +4,17 @@ public class StateDto {
     private Long id;
     private String name;
     private int number;
+    private String countryName;
+    //private String cityName;
 
     public StateDto() {
     }
 
-    public StateDto(String name, int number) {
+    public StateDto(String name, String countryName, int number) {
         this.name = name;
         this.number = number;
+        this.countryName = countryName;
+        //this.cityName = cityName;
     }
 
     public Long getId() {
@@ -36,4 +40,20 @@ public class StateDto {
     public void setNumber(int number) {
         this.number = number;
     }
+
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
+    }
+
+//    public String getCityName() {
+//        return cityName;
+//    }
+//
+//    public void setCityName(String cityName) {
+//        this.cityName = cityName;
+//    }
 }

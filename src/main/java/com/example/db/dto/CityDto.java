@@ -3,10 +3,14 @@ package com.example.db.dto;
 public class CityDto {
     private Long id;
     private String name;
+    private String stateName;
+    private String countryName;
 
-    public CityDto(String name, Long id, String s) {
+    public CityDto(String name, Long id, String stateName, String countryName) {
         this.name = name;
         this.id = id;
+        this.stateName = stateName;
+        this.countryName = countryName;
     }
 
     public Long getId() {
@@ -23,5 +27,21 @@ public class CityDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setStateName(String stateName) {
+        this.stateName = stateName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
+    }
+
+    public String getStateName() {
+        return stateName;
+    }
+
+    public String getCountryName() {
+        return countryName;
     }
 }

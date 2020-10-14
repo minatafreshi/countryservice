@@ -4,6 +4,7 @@ import com.example.db.dto.CityDto;
 import com.example.db.dto.CountryDto;
 import com.example.db.dto.StateDto;
 
+import com.example.db.entity.State;
 import com.example.db.service.CountryService;
 
 import io.swagger.annotations.Api;
@@ -70,8 +71,8 @@ public class CountryController {
 
     @GET
     @Produces("application/json; charset=utf-8")
-    @Path("/cities")
-    public Response getAllCities(@PathParam("stateId") long stateId) {
+    @Path("/cities/{stateId}/")
+    public Response getAllCities(CityDto cityDto, @PathParam("stateId") long stateId) {
         return countryService.listCity(stateId);
     }
 

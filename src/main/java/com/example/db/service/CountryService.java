@@ -50,18 +50,19 @@ public class CountryService {
         List<StateDto> stateDtos = new ArrayList<>();
 
         for (State state : stateList) {
-            stateDtos.add(new StateDto(state.getName(), 0));
+            stateDtos.add(new StateDto(state.getName(), state.getCountry().getName(), 0));
         }
 
         return Response.status(Response.Status.OK).entity(stateDtos).build();
     }
+
     public Response listCity(Long id) {
         List<City> cityList = cityRepository.listByStateId(id);
         List<CityDto> cityDtos = new ArrayList<>();
 
         for (City city : cityList) {
-            cityDtos.add(new CityDto(city.getName(), city.getId(), city.getState().getName()));
-
+            cityDtos.add(new CityDto(city.getName(), city.getId(), city.getState().getName(),
+                    city.getState().getCountry().getName()));
         }
 
         return Response.status(Response.Status.OK).entity(cityDtos).build();
@@ -97,9 +98,9 @@ public class CountryService {
         newCity.setName(city.getName());
         City saveCity = cityRepository.save(newCity);
         if (cityRepository.findById(saveCity.getId()).isPresent()) {
-            return Response.status(Response.Status.ACCEPTED).header("Content-Type", "application/json;charset=UTF-8").build();
+            return Response.status(Response.Status.ACCEPTED).build();
         } else
-            return Response.status(Response.Status.BAD_REQUEST).header("Content-Type", "application/json;charset=UTF-8").build();
+            return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
     public Response deleteCity(Long id) {
