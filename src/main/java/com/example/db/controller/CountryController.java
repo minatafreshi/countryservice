@@ -3,8 +3,6 @@ package com.example.db.controller;
 import com.example.db.dto.CityDto;
 import com.example.db.dto.CountryDto;
 import com.example.db.dto.StateDto;
-
-import com.example.db.entity.State;
 import com.example.db.service.CountryService;
 
 import io.swagger.annotations.Api;
@@ -21,7 +19,8 @@ public class CountryController {
 
     private CountryService countryService;
 
-    public CountryController(CountryService countryService) {
+    public CountryController(CountryService countryService)
+    {
         this.countryService = countryService;
     }
 
@@ -30,28 +29,33 @@ public class CountryController {
     @Produces("application/json; charset=utf-8")
     @Path("/countries")
     @ApiOperation("get all Country")
-    public Response getAllCountry(@QueryParam("page") @DefaultValue("0") int pageNo, @QueryParam("size") @DefaultValue("10") int pageSize, @QueryParam("name") String name) {
+    public Response getAllCountry(@QueryParam("page") @DefaultValue("0") int pageNo,
+                                  @QueryParam("size") @DefaultValue("10") int pageSize,
+                                  @QueryParam("name") String name) {
         return countryService.listCountry(pageNo, pageSize, name);
     }
 
     @POST
     @Produces("application/json; charset=utf-8")
     @Path("/countries")
-    public Response createCountry(CountryDto country) {
+    public Response createCountry(CountryDto country)
+    {
         return countryService.addCountry(country);
     }
 
     @DELETE
     @Produces("application/json; charset=utf-8")
     @Path("/countries/{id}")
-    public Response deleteCountry(@PathParam("id") long id) {
+    public Response deleteCountry(@PathParam("id") long id)
+    {
         return countryService.deleteCountry(id);
     }
 
     @GET
     @Produces("application/json; charset=urf-8")
     @Path("/states/{countryId}/")
-    public Response getAllStates(StateDto state, @PathParam("countryId") long countryId) {
+    @ApiOperation("get all states")
+    public Response getAllStates(@PathParam("countryId") long countryId) {
         return countryService.listState(countryId);
     }
 
@@ -72,7 +76,8 @@ public class CountryController {
     @GET
     @Produces("application/json; charset=utf-8")
     @Path("/cities/{stateId}/")
-    public Response getAllCities(CityDto cityDto, @PathParam("stateId") long stateId) {
+    @ApiOperation("get all cities")
+    public Response getAllCities(@PathParam("stateId") long stateId) {
         return countryService.listCity(stateId);
     }
 
