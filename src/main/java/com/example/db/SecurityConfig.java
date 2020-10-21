@@ -1,2 +1,7 @@
-package com.example.db;public class SecurityConfig {
-}
+//package com.example.db;
+//
+//@Configuration
+//@EnableWebSecurity
+//public class SecurityConfig {
+//
+//}
