@@ -11,6 +11,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
@@ -34,6 +36,7 @@ public class CountryController {
         return countryService.listCountry(pageNo, pageSize, name);
     }
 
+    //@RolesAllowed("ADMIN")
     @POST
     @Produces("application/json; charset=utf-8")
     @Path("/countries")
@@ -41,6 +44,7 @@ public class CountryController {
         return countryService.addCountry(country);
     }
 
+    //@RolesAllowed("ADMIN")
     @DELETE
     @Produces("application/json; charset=utf-8")
     @Path("/countries/{id}")
@@ -48,13 +52,15 @@ public class CountryController {
         return countryService.deleteCountry(id);
     }
 
+    @RolesAllowed("ADMIN")
     @GET
     @Produces("application/json; charset=urf-8")
     @Path("/states/{countryId}/")
-    public Response getAllStates(StateDto state, @PathParam("countryId") long countryId) {
+    public Response getAllStates(@PathParam("countryId") long countryId) {
         return countryService.listState(countryId);
     }
 
+    //@RolesAllowed("ADMIN")
     @POST
     @Produces("application/json; charset=utf-8")
     @Path("/countries/{countryId}/state")
@@ -62,6 +68,7 @@ public class CountryController {
         return countryService.addState(state, countryId);
     }
 
+    //@RolesAllowed("ADMIN")
     @DELETE
     @Produces("application/json; charset=utf-8")
     @Path("/states")
@@ -69,13 +76,15 @@ public class CountryController {
         return countryService.deleteState(id);
     }
 
+    @RolesAllowed("ADMIN")
     @GET
     @Produces("application/json; charset=utf-8")
     @Path("/cities/{stateId}/")
-    public Response getAllCities(CityDto cityDto, @PathParam("stateId") long stateId) {
+    public Response getAllCities(@PathParam("stateId") long stateId) {
         return countryService.listCity(stateId);
     }
 
+    //@RolesAllowed("ADMIN")
     @POST
     @Produces("application/json; charset=utf-8")
     @Path("/states/{stateId}/city")
@@ -83,6 +92,7 @@ public class CountryController {
         return countryService.addCity(city, stateId);
     }
 
+    //@RolesAllowed("ADMIN")
     @DELETE
     @Produces("application/json; charset=utf-8")
     @Path("cities/{id}")
