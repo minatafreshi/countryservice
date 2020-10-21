@@ -5,6 +5,7 @@ import com.example.db.controller.CountryController;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jaxrs.listing.ApiListingResource;
 import io.swagger.jaxrs.listing.SwaggerSerializers;
+import org.glassfish.jersey.logging.LoggingFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -20,5 +21,8 @@ public class Config extends ResourceConfig {
         BeanConfig beanConfig = new BeanConfig();
         beanConfig.setVersion("1");
         beanConfig.setResourcePackage("com.example.db.controller");
+
+        register(LoggingFeature.class);
+//        register(AuthenticationFilter.class);
     }
 }
