@@ -42,8 +42,7 @@ public class CountryService {
         if (countries.isEmpty()) {
             return Response.status(Response.Status.NO_CONTENT).build();
         }
-        return Response.status(Response.Status.OK).entity(new PaginationDto(countries.getContent(),
-                countries.getTotalElements(), countries.getTotalPages())).build();
+        return Response.status(Response.Status.OK).entity(new PaginationDto(countries.getContent(), countries.getTotalElements(), countries.getTotalPages())).build();
     }
 
     public Response listState(Long id) {
@@ -51,8 +50,7 @@ public class CountryService {
         List<StateDto> stateDtos = new ArrayList<>();
 
         for (State state : stateList) {
-            stateDtos.add(new StateDto(state.getName(),
-                    state.getCountry().getName(), 0));
+            stateDtos.add(new StateDto(state.getName(), state.getCountry().getName(), 0));
         }
 
         return Response.status(Response.Status.OK).entity(stateDtos).build();
