@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 
-public class AuthenticationFilterc {
+public class AuthenticationFilter {
 
     @Context
     private ResourceInfo resourceInfo;
@@ -24,7 +24,7 @@ public class AuthenticationFilterc {
     private static final String AUTHORIZATION_PROPERTY = "Authorization";
     private static final String AUTHENTICATION_SCHEME = "Basic";
 
-    @Override
+    //@Override
     public void filter(ContainerRequestContext requestContext) {
 
         Method method = resourceInfo.getResourceMethod();
